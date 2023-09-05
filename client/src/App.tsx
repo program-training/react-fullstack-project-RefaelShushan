@@ -1,34 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState,createContext } from 'react'
+import Home from './components/Home'
 import './App.css'
+import '../src/components/card/card.css'
+import Trips from './components/Trips'
+import TripDetail from"./components/TripDetail"
+import NewTripForm from './components/NewTripForm'
+import UpdateTrip  from './components/UpdateTripForm'
+import UserRegistration from './components/UserRegistration' 
+import UserLogin from "./components/UserLogin"
+
+
+export const PageContext = createContext<{page:string; setText:React.Dispatch<React.SetStateAction<string>>} |null>(null);
+
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [page ,setText ] = useState("home")
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <PageContext.Provider value={{page,setText}}>
+   {page === "home" ? <Home/>:null}
+   {page === "Trips" ? <Trips/>:null}
+   {page === "TripDetail" ? <TripDetail/>:null}
+   {page === "NewTrip" ? <NewTripForm/>:null}
+   {page === "UpdateTrip " ? <UpdateTrip />:null}
+   {page === "UserRegistration" ? <UserRegistration />:null}
+   {page === "UserLogin" ? <UserLogin />:null}
+   </PageContext.Provider>
   )
 }
 
