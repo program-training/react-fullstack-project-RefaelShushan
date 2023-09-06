@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState,useEffect } from "react";
 import { PageContext } from "../App";
 import { typeTrip } from "./Type";
 import CreateCard from "../components/card/CreateCard";
@@ -15,8 +15,8 @@ async function getTrips() {
 
 export default function Trips({}: Props) {
   const context = useContext(PageContext);
-  getTrips().then((data) => setTrip(data));
   const [trip, setTrip] = useState<typeTrip[]>([]);
+  useEffect(() => {getTrips().then((data) => setTrip(data))});
   if (context)
     return (
       <div>
@@ -24,6 +24,7 @@ export default function Trips({}: Props) {
           <h1>welcome to Trips</h1>
           {trip.map((Data) => (
             <CreateCard
+            key={Data.id}
               id={Data.id}
               name={Data.name}
               destination={Data.destination}

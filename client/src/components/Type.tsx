@@ -8,6 +8,7 @@ export type typeTrip = {
 };
 
 export type typeTripById ={
+  key:string,
   id: string,
   name: string,
   destination:string,
