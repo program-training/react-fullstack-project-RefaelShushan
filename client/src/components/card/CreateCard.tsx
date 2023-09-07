@@ -2,21 +2,15 @@ import { useContext } from "react";
 import { PageContext, TypeTripByIdContext } from "../../App";
 import { typeTrip } from "../Type";
 
-export default function card(data: typeTrip) {
+interface Props extends typeTrip{
+  handleDelete:(id:string)=>void
+} 
+
+export default function Card(data: Props) {
   const context = useContext(PageContext);
   const typeTripByIdContext = useContext(TypeTripByIdContext);
 
-  async function handleDelete(
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    id: string
-  ) {
-    event.stopPropagation();
-    await fetch(`http://localhost:3000/api/trips/${id}`, {
-      method: "DELETE",
-      headers: { Authorization: "test-token" },
-    });
-  }
-
+  
   if (context && typeTripByIdContext)
     return (
       <div
@@ -39,7 +33,8 @@ export default function card(data: typeTrip) {
         />
         <button
           onClick={(e) => {
-            handleDelete(e, data.id);
+            e.stopPropagation();
+            data.handleDelete(data.id);
           }}
         >
           Delete

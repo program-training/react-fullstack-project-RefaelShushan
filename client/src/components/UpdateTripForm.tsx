@@ -2,7 +2,7 @@ import { useContext,useState } from "react";
 import { PageContext } from "../App";
 import { typeTripById } from "./Type";
 import { TypeTripByIdContext } from "../App";
-// const [trip, setTripById] = useState("");
+
 type Props = {};
 
 async function updateTrip(typeFullTrip: typeTripById,id:string) {
@@ -16,7 +16,6 @@ async function updateTrip(typeFullTrip: typeTripById,id:string) {
 export default function UpdateTripForm({}: Props) {
   const context = useContext(PageContext);
   const tripContext = useContext(TypeTripByIdContext);
-  // const pageContext = useContext(PageContext);
   const [newTrip, setNewTrip] = useState<typeTripById>({
     key: "",
     id: "",

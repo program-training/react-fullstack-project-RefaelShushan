@@ -2,8 +2,6 @@ import { useContext, useState, useEffect } from "react";
 import { PageContext, TypeTripByIdContext } from "../App";
 import CardById from "./card/CreateCardId";
 import { typeTripById } from "./Type";
-// import { typeTripByIdContext} from "../App"
-// import card from "./card/CreateCard";
 
 type Props = {};
 
@@ -18,11 +16,13 @@ export default function TripDetail({}: Props) {
   if (typeTripByIdContext)
     useEffect(() => {
       getTripById(typeTripByIdContext.trip).then((trip) => setTrip(trip));
-    });
+    },[]);
   const [trip, setTrip] = useState<typeTripById>();
   if (context && trip)
     return (
       <div>
+         <button onClick={() => context.setText("Trips")}>All Trips</button>
+        <button onClick={() => context.setText("UpdateTrip")}>update</button>
         <h1>welcome to Trip Detail</h1>
         <CardById
           key={trip.id}
@@ -36,8 +36,7 @@ export default function TripDetail({}: Props) {
           image={trip.image}
           activities={trip.activities}
         />
-        <button onClick={() => context.setText("Trips")}>All Trips</button>
-        <button onClick={() => context.setText("UpdateTrip")}>update</button>
+       
       </div>
     );
   }  
